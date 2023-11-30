@@ -11,7 +11,7 @@ function love.load(args)
 end
 
 function love.update(dt)
-
+    Network:update(dt)
 end
 
 function love.draw()
