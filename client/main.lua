@@ -3,14 +3,14 @@ require 'globals'
 Menu = require 'src.menu.menu'
 Load = require 'src.load.load'
 Game = require 'src.game.game'
-Network = require 'src.network'
+Client = require 'src.client'
 
 function love.load(args)
-    Network:connect()
+  Client:connect()
 end
 
 function love.update(dt)
-    Network:update(dt)
+  Client:update(dt)
 end
 
 function love.draw()
