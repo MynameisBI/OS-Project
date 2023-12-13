@@ -8,7 +8,7 @@ Client = require 'src.client'
 function love.load(args)
   Client:connect()
   Gamestate.registerEvents()
-  Gamestate.switch(Menu)
+  Gamestate.switch(Game)
 end
 
 function love.update(dt)
