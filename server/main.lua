@@ -11,7 +11,7 @@ function love.load(args)
 end
 
 function love.update(dt)
-    Server:update(dt)
+  Server:update(dt)
 end
 
 function love.draw()

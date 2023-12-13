@@ -1,0 +1,101 @@
+Bulldog
+Labrador Retriever
+Golden Retriever
+German Shepherd
+Poodle
+Bulldog
+Rottweiler
+Beagle
+Dachshund
+Corgi
+Australian Shepherd
+Yorkshire Terrier
+Doberman Pinscher
+Boxer
+Miniature Schnauzer
+Cane Corso
+Great Dane
+Shih Tzu
+Siberian Huskie
+Bernese Mountain 
+Pomeranian
+Boston Terrier
+Havanese
+Shetland Sheepdog
+Brittany
+Cocker Spaniel
+Border Collie
+Belgian Malinoi
+Vizsla
+Chihuahua
+Pug
+Basset Hound
+Mastiff
+Maltese
+Collie
+Rhodesian Ridgeback
+Newfoundland
+Shiba Inu
+Weimaraner
+Portuguese Water 
+Bichons Frise
+Dalmatian
+Bloodhound
+Papillon
+Samoyed
+Whippet
+Akita
+St. Bernard
+Giant Schnauzer
+Scottish Terrier
+Bullmastiff
+Italian Greyhound
+Bull Terrier
+Airedale Terrier
+Alaskan Malamute
+Chinese Shar-Pei
+Great Pyrenees
+Cairn Terrier
+Irish Setter
+Miniature Pinscher
+Russell Terrier
+Old English Sheepdog
+Lagotti Romagnoli
+Biewer Terrier
+Dogues de Bordeaux
+Anatolian Shepherd 
+Chinese Crested
+Boykin Spaniel
+Cotons de Tulear
+Rat Terrier
+Lhasa Apsos
+Dogo Argentino
+Irish Wolfhound
+Keeshonden
+Basenji
+Chow Chow
+English Setter
+Standard Schnauzer
+Border Terrier
+Pekingese
+Brussels Griffon
+Bouviers des Flandres
+Gordon Setter
+Norwegian Elkhound
+Borzoi
+Wire Fox Terrier
+Flat-Coated Retriever
+Belgian Tervuren
+Japanese Chin
+Tibetan Terrier
+English Pointer
+Toy Fox Terrier
+Norwich Terrier
+Beauceron
+Spinoni Italiani
+Welsh Terrier
+Leonberger
+Schipperke
+Afghan Hound
+Boerboel
+Neapolitan Mastiff

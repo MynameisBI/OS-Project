@@ -12,7 +12,7 @@ function love.load(args)
 end
 
 function love.update(dt)
-  Client:update(dt)
+
 end
 
 function love.draw()
