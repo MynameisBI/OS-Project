@@ -15,8 +15,6 @@ function Game:enter(previous, gameNumber)
 end
 
 function Game:update(dt)
-    -- Code to update the state 
-
     Lume.each(self.textBoxes, 'update', dt)
 end
 

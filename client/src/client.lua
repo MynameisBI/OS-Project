@@ -1,4 +1,4 @@
-local Client = Sock.newClient('localhost', 1905)
+local Client = Sock.newClient('localhost', 22122)
 
 Client:setSerialization(bitser.dumps, bitser.loads)
 

@@ -7,12 +7,10 @@ Client = require 'src.client'
 
 function love.load(args)
   Client:connect()
-  Gamestate.registerEvents()
-  Gamestate.switch(Game)
 end
 
 function love.update(dt)
-
+  Client:update(dt)
 end
 
 function love.draw()
