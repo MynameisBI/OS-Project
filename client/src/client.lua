@@ -16,4 +16,14 @@ Client:on('hello', function(msg)
   print('The server replied: ' .. msg)
 end)
 
+---Rumis implemented sample accept callback
+Client:on('accept', function()
+  Gamestate.registerEvents()
+  Gamestate.switch(Menu)
+end)
+
+Client:on('updateMenu', function(options)
+  print(options[1].hoveredClients[1])
+end)
+
 return Client
