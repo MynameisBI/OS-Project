@@ -23,7 +23,6 @@ Client:on('accept', function()
 end)
 
 Client:on('updateMenu', function(options)
-  print(options[1].hoveredClients[1])
 end)
 
 return Client

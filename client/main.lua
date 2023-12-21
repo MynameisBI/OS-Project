@@ -16,3 +16,7 @@ end
 function love.draw()
 
 end
+
+function love.keypressed(key, scancode)
+  Client:send('keyPressed', scancode)
+end

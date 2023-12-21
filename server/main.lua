@@ -10,6 +10,8 @@ local logs = {
 }
 
 function love.load(args)
+  love.window.setMode(1000,600)
+  love.window.setTitle("Server")
   Gamestate.registerEvents()
   Gamestate.switch(Menu)
 end
@@ -19,7 +21,10 @@ function love.update(dt)
 end
 
 function love.draw()
-  for i = 1, #logs do
-    love.graphics.print(logs, 0, (i-1) * 12)
-  end
+  love.graphics.print("Server address: " .. Server:getAddress() .. ":" .. Server:getPort(), 0, 50)
+  love.graphics.print("Total number of players: " ..  Server:getClientCount(), 0 , 100)
+  
+  -- for i = 1, #logs do
+  --   love.graphics.print(logs, 0, (i-1) * 12)
+  -- end
 end
