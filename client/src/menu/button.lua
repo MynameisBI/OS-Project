@@ -2,14 +2,19 @@ local Button = Class('Button')
 
 local MARGIN = 16
 
-function Button:initialize(text, x, y, w, h, fn)
+function Button:initialize(text, image, x, y, w, h, onHit, onHovered)
   self.text = text
 
+  self.image = image
+
   self.x, self.y, self.width, self.height = x, y, w, h
+  self.sx, self.sy = 1, 1
 
   self.font = Fonts.medium
 
-  self.fn = fn or function() end
+  self.onHit = onHit or function() end
+  self.onHovered = onHovered or function() end
+
   self.now = false
   self.last = false
 
@@ -34,9 +39,6 @@ function Button:update(dt)
 end
 
 function Button:draw()
-    local w = love.graphics.getWidth()
-    local h = love.graphics.getHeight()
-
     self.last = self.now
 
     local color= {1,1,1, 1.0}
@@ -44,34 +46,52 @@ function Button:draw()
     local hot = mx > self.x and mx < self.x + self.width and
                 my > self.y and my < self.y + self.height
     if hot then
+        self.onHovered(self)
         color = {0.5, 0.5, 0.5, 1.0}
+    else
+
     end
 
     self.now = love.mouse.isDown(1)
     if self.now and not self.last and hot then
-        self.fn()
+        self.onHit(self)
     end
 
     love.graphics.setColor(color)
-    love.graphics.rectangle(
+    if self.image then
+      love.graphics.draw(self.image, self.x, self.y, 0,
+          self.width / self.image:getWidth(), self.height / self.image:getHeight())
+
+      love.graphics.setColor(1, 1, 1)
+      love.graphics.printf(
+        self.text,
+        self.font,
+        self.x - 40,
+        self.y + self.height + 12,
+        self.width + 80,
+        'center'
+      )
+
+    else
+      love.graphics.rectangle(
         "fill",
         self.x,
         self.y,
         self.width,
         self.height
-    )
+      )
 
-    love.graphics.setColor(0,0,0,1)
-
-    local textW = self.font:getWidth(self.text)
-    local textH = self.font:getHeight()
-
-    love.graphics.print(
+      love.graphics.setColor(0, 0, 0)
+      love.graphics.printf(
         self.text,
         self.font,
-        self.x + self.width * 0.5 - textW * 0.5,
-        self.y + textH * 0.5
-    )
+        self.x - 40,
+        self.y + self.height / 2 - self.font:getHeight() / 2,
+        self.width + 80,
+        'center'
+      )
+
+    end
 end
 
 return Button

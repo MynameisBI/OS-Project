@@ -3,37 +3,35 @@ local Button = require 'src.menu.button'
 
 local Menu = {}
 
-local BUTTON_WIDTH=love.graphics.getWidth() * (1/3)
-local BUTTON_HEIGHT=64
+local BUTTON_WIDTH = 160
+local BUTTON_HEIGHT = 160
 
 function Menu:enter(previous)
-    print("Hi")
-    
-    self.buttons = {}
-
-    table.insert(self.buttons, Button(
-    "Start Game 1", BUTTON_WIDTH, 50, BUTTON_WIDTH, BUTTON_HEIGHT,
-    function() 
-        Gamestate.switch(require 'src.load.load', {gameNumber = 1})
-    end))
-
-    table.insert(self.buttons, Button(
-    "Start Game 2", BUTTON_WIDTH, 180, BUTTON_WIDTH, BUTTON_HEIGHT,
-    function() 
-        Gamestate.switch(require 'src.load.load', {gameNumber = 2})
-    end))
-
-    table.insert(self.buttons, Button(
-    "Start Game 3", BUTTON_WIDTH, 310, BUTTON_WIDTH, BUTTON_HEIGHT,
-    function() 
-        Gamestate.switch(require 'src.load.load', {gameNumber = 3})
-    end))
-
-    table.insert(self.buttons, Button(
-    "Exit Game", BUTTON_WIDTH, 440, BUTTON_WIDTH, BUTTON_HEIGHT,
-    function() 
-        love.event.quit(0)
-    end))
+    self.buttons = {
+        Button(
+            "CAT", Images.ui.catButton,
+            160, 200, BUTTON_WIDTH, BUTTON_HEIGHT,
+            function(b) Gamestate.switch(Load, {gameNumber = 1}) end,
+            function(b) self.currentHoveredButton = b end
+        ),
+        Button(
+            "DOG", Images.ui.dogButton,
+            460, 200, BUTTON_WIDTH, BUTTON_HEIGHT,
+            function(b) Gamestate.switch(Load, {gameNumber = 1}) end,
+            function(b) self.currentHoveredButton = b end
+        ),
+        Button(
+            "SKELETON", Images.ui.skeletonButton,
+            760, 200, BUTTON_WIDTH, BUTTON_HEIGHT,
+            function(b) Gamestate.switch(Load, {gameNumber = 1}) end,
+            function(b) self.currentHoveredButton = b end
+        ),
+        Button(
+            "Exit Game", nil, 700, 540, 320, 60,
+            function(b) love.event.quit(0) end
+        ),
+    }
+    self.currentHoveredButton = nil
 end
 
 function Menu:update(dt)
@@ -41,6 +39,7 @@ function Menu:update(dt)
 end
 
 function Menu:draw()
+    love.graphics.setBackgroundColor(56/255, 41/255, 83/255)
     Lume.each(self.buttons, 'draw')
 end
 

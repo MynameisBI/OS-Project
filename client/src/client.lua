@@ -23,6 +23,15 @@ Client:on('accept', function()
 end)
 
 Client:on('updateMenu', function(options)
+
+end)
+
+Client:on('updateLoad', function(options)
+  
+end)
+
+Client:on('updateGame', function(options)
+  
 end)
 
 return Client

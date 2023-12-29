@@ -5,9 +5,20 @@ Class = require 'libs.middleclass'
 Lume = require 'libs.lume'
 
 Images = {
-
+  ui = {
+    catButton = love.graphics.newImage('assets/ui/catButton.png'),
+    dogButton = love.graphics.newImage('assets/ui/dogButton.png'),
+    skeletonButton = love.graphics.newImage('assets/ui/skeletonButton.png'),
+  },
+  cats = {},
+  dogs = {},
+  skeletons = {},
 }
 
 Fonts = {
-  medium = love.graphics.newFont(32)
+  tiny = love.graphics.newFont('assets/Foo.ttf', 16),
+  small = love.graphics.newFont('assets/Foo.ttf', 24),
+  medium = love.graphics.newFont('assets/Foo.ttf', 32),
+  big = love.graphics.newFont('assets/Foo.ttf', 48),
+  large = love.graphics.newFont('assets/Foo.ttf', 60),
 }
