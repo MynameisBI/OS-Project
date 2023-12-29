@@ -10,7 +10,13 @@ Images = {
     dogButton = love.graphics.newImage('assets/ui/dogButton.png'),
     skeletonButton = love.graphics.newImage('assets/ui/skeletonButton.png'),
     emptyBar = love.graphics.newImage('assets/ui/emptyBar.png'),
-    progress = love.graphics.newImage('assets/ui/progress.png')
+    progress = love.graphics.newImage('assets/ui/progress.png'),
+    textBoxes = {
+      green = love.graphics.newImage('assets/ui/greenTextBox.png'),
+      gem = love.graphics.newImage('assets/ui/gemTextBox.png'),
+      ice = love.graphics.newImage('assets/ui/iceTextBox.png'),
+      sponge = love.graphics.newImage('assets/ui/spongeTextBox.png'),
+    }
   },
   cats = {},
   dogs = {},

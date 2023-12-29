@@ -3,14 +3,16 @@ local TextBox = require 'src.game.textBox'
 
 local Game = {}
 
+local SW, SH = love.graphics.getDimensions()
+
 function Game:enter(previous, gameNumber)
     self.gameNumber= gameNumber or 1
     
     self.textBoxes = {
-        TextBox(1, 200, 125, 200, 60),
-        TextBox(2, 700, 125, 200, 60),
-        TextBox(3, 200, 425, 200, 60),
-        TextBox(4, 700, 425, 200, 60),
+        TextBox(1, SW * 0.25, SH * 0.25),
+        TextBox(2, SW * 0.75, SH * 0.25),
+        TextBox(3, SW * 0.25, SH * 0.75),
+        TextBox(4, SW * 0.75, SH * 0.75),
     }
 end
 
