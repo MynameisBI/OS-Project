@@ -37,6 +37,32 @@ function Loading:draw()
     love.graphics.rectangle("fill", -rectangleSize / 2, -rectangleSize / 2, rectangleSize, rectangleSize)  -- Draw centered rectangle
     love.graphics.pop()  -- Restore the previous transformation state
     love.graphics.setColor(1, 1, 1)  -- Reset color to white
+
+
+  local x, y = love.graphics.getWidth() / 2, 560
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(Images.ui.emptyBar, x, y,
+      0, 0.275, 0.275, Images.ui.emptyBar:getWidth() / 2, Images.ui.emptyBar:getHeight() / 2)
+
+  love.graphics.stencil(function()
+    local w, h = Images.ui.emptyBar:getDimensions()
+    local w, h = w * 0.275, h * 0.275
+    love.graphics.rectangle('fill', x - w / 2, y - h / 2, w * loadingTimer / loadingDuration, h)
+  end, 'replace', 1)
+  love.graphics.setStencilTest('greater', 0)
+  love.graphics.draw(Images.ui.progress, x, y, 0, 0.275, 0.275,
+      Images.ui.progress:getWidth() / 2, Images.ui.progress:getHeight() / 2)
+  love.graphics.setStencilTest()
+
+  local text = 'LOADING'
+  if loadingDuration then
+    for i = 1, math.floor(loadingTimer / 0.5) % 4 do
+      text = text..'.'
+    end
+  end
+  love.graphics.setColor(0.96, 0.96, 0.96)
+  love.graphics.setFont(Fonts.medium)
+  love.graphics.printf(text, love.graphics.getWidth() / 2 - 400, 480, 800, 'center')
 end
 
 

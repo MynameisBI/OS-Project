@@ -49,7 +49,7 @@ function Button:draw()
         self.onHovered(self)
         color = {0.5, 0.5, 0.5, 1.0}
     else
-
+      
     end
 
     self.now = love.mouse.isDown(1)

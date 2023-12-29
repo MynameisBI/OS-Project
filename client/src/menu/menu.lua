@@ -39,7 +39,6 @@ function Menu:update(dt)
 end
 
 function Menu:draw()
-    love.graphics.setBackgroundColor(56/255, 41/255, 83/255)
     Lume.each(self.buttons, 'draw')
 end
 

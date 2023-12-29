@@ -9,6 +9,8 @@ Images = {
     catButton = love.graphics.newImage('assets/ui/catButton.png'),
     dogButton = love.graphics.newImage('assets/ui/dogButton.png'),
     skeletonButton = love.graphics.newImage('assets/ui/skeletonButton.png'),
+    emptyBar = love.graphics.newImage('assets/ui/emptyBar.png'),
+    progress = love.graphics.newImage('assets/ui/progress.png')
   },
   cats = {},
   dogs = {},

@@ -6,6 +6,7 @@ Game = require 'src.game.game'
 Client = require 'src.client'
 
 function love.load(args)
+  love.graphics.setBackgroundColor(56/255, 41/255, 83/255)
   Client:connect()
 end
 
