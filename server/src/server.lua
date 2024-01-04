@@ -110,8 +110,25 @@ function allClientsLockedOption(optionIndex)
   return true 
 end
 
--- Server:on('completeLoad', function(data, client)
+Server:on('completeLoad', function(data, client)
+  local loadState = Gamestate.current()
+  if loadState ~= Load then
+    print('Invalid completeLoad message from client. Current server gamestate is not Load')
+  end
 
--- end)
+  local clientIndex = Server.findClientIndex(client)
+  loadState.clientStatuses[clientIndex] = 'done'
+
+  local allClientsDoneLoading = true
+  for i = 1, Server:getClientCount() do
+    if loadState.clientStatuses[i] == 'loading' then
+      allClientsDoneLoading = false
+    end
+  end
+
+  if allClientsDoneLoading then
+    Server:sendToAll('switchGame')
+  end
+end)
 
 return Server
