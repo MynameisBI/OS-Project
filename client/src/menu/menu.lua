@@ -7,6 +7,7 @@ local BUTTON_WIDTH = 160
 local BUTTON_HEIGHT = 160
 
 function Menu:enter(previous)
+    print("Entered Menu State")
     self.buttons = {
         Button(
             "CAT", Images.ui.catButton,

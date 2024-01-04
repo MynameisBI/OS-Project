@@ -18,6 +18,7 @@ function Loading:init()
 end
 
 function Loading:enter(previous, gameNr)
+  print("Entered Loading State")
     self.gameNumber = gameNr.gameNumber
     --rotationAngle = 0
     --loadingTimer = 0
@@ -37,24 +38,26 @@ function Loading:update(dt)
       loader.update() -- You must do this on each iteration until all resources are loaded
     end
 
-
   --  rotationAngle = rotationAngle + dt * 2 * math.pi
+
+
   --switch to game:
-  --if finishedLoading then
-  --  Gamestate.switch(require 'src.game.game', self.gameNumber)
-  --end
+  if finishedLoading then
+    print("Finished Loading State")
+    Gamestate.switch(require 'src.game.game', self.gameNumber)
+  end
 end
 
 function Loading:draw()
   love.graphics.setColor(1,1,1)
 
-  if finishedLoading then --draw maybe not needed
-    for i = 1, 150 do
-      local key = 'cat' .. i
-      local x = (i - 100) * 10 
-      local y = 0
-      love.graphics.draw(images[key], x, y)
-    end
+  if finishedLoading then --not needed for game just do else part with  "if not finishedloading then"
+--    for i = 1, 150 do
+--      local key = 'cat' .. i
+--      local x = (i - 100) * 10 
+--      local y = 0
+--      love.graphics.draw(images[key], x, y)
+--    end
   else
     local percent = 0
     if loader.resourceCount ~= 0 then percent = loader.loadedCount / loader.resourceCount end
