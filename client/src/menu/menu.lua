@@ -35,7 +35,17 @@ function Menu:enter(previous)
 end
 
 function Menu:update(dt)
-    Lume.each(self.buttons, 'update', dt)
+    --Retrieve serverResponse here
+    local serverResponses = {
+        { h = {true, true, true, true}, s = {false, false, false, false} },
+        { h = {false, false, false, false}, s = {true, true, true, true} },
+        { h = {true, true, false, false}, s = {false, false, true, true} },
+        { h = {false, false, true, true}, s = {true, true, false, false} }
+    }
+
+    for i, button in ipairs(self.buttons) do
+        button:update(dt, serverResponses[i].h, serverResponses[i].s)
+    end
 end
 
 function Menu:draw()
