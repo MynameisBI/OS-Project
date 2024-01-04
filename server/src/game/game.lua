@@ -8,22 +8,20 @@
 --- with one character got typed one image will be spawned
 
 local Loader = require 'libs.love-loader'
--- local loadImages = require 'src/game/images'
 local Game = {}
 
 function Game:load()
-  -- self.images = loadImages(animalType) --dog or cat
   self.positions = {}
   self.directions = {}
   self.speeds = {}
   self.alive = true
+  self.imageData = {}
 end
 
 function Game:spawn(key, clientId)
   local imageId = math.random(1, 150)
-  -- local image = self.images[clientId][imageId]s
-  self.positions[clientIdd] = {x = math.random(0, 1000), y = math.random(0, 1000)}
-  self.directions[clientIdd] = {x = math.random(-1, 1), y = math.random(-1, 1)}
+  self.positions[clientId] = {x = 540, y = 320}
+  self.directions[clientId] = {x = math.random(-1, 1), y = math.random(-1, 1)}
   self.speeds[clientId] = math.random(1, 10)
 end
 
@@ -31,12 +29,26 @@ function Game:update(dt)
   --Create thread for each client
   for clientId, thread in pairs(self.threads) do
     thread:start(function()
-      -- for id, _ in pairs(self.images) do
-      --   self.positions[id].x = self.positions[id].x + self.directions[id].x * self.speeds[id]
-      --   self.positions[id].y = self.positions[id].y + self.directions[id].y * self.speeds[id]
-      -- end
+      for id, _ in pairs(self.images) do
+        self.positions[id].x = self.positions[id].x + self.directions[id].x * self.speeds[id]
+        self.positions[id].y = self.positions[id].y + self.directions[id].y * self.speeds[id]
+
+        --If image is out of bound, change direction
+        if self.positions[id].x < 0 or self.positions[id].x > 1080 then
+          self.directions[id].x = -self.directions[id].x
+        end
+        if self.positions[id].y < 0 or self.positions[id].y > 720 then
+          self.directions[id].y = -self.directions[id].y
+        end
+
+        --Update image position
+        self.imageData[id] = {x = self.positions[id].x, y = self.positions[id].y}
+      end
     end)
   end
+
+  --Send new imageData to all clients
+  Server:sendToAll('updateImages', self.imageData) 
 end
 
 
@@ -46,14 +58,6 @@ function love.keypressed(key, client)
 end
 
 function Game:draw()
-  -- for clientId, _ in pairs(self.images) do
-  --   for id, image in pairs(self.images[clientId]) do
-  --     local position = self.positions[clientId]
-  --     if position then
-  --       love.graphics.draw(image, position.x, position.y)
-  --     end
-  --   end
-  -- end  
 end
 
 
