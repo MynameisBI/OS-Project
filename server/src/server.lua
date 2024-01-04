@@ -13,11 +13,11 @@ Server:on('disconnect', function(data)
     print('Client disconnected to the server')
 end)
 
-local findClientIndex = function(client)
+Server.findClientIndex = function(client)
   local clients = Server:getClients()
   for i = 1, Server:getClientCount() do 
     if clients[i] == client  then
-       return i 
+      return i 
     end
   end
 end
@@ -29,7 +29,7 @@ Server:on('keyPressed', function(keyPressed, client)
 
     if keyPressed == 'a' or keyPressed == 'left' then
       for i, option in ipairs(Gamestate.current().options) do -- 
-        local index = findClientIndex(client)
+        local index = Server.findClientIndex(client)
         if(option.hoveredClients[index]) then
           option.hoveredClients[index] = false 
           i = i - 1 --move from left most to right most
@@ -42,7 +42,7 @@ Server:on('keyPressed', function(keyPressed, client)
 
     elseif keyPressed == 'd' or keyPressed =='right' then
       for i, option in ipairs(Gamestate.current().options) do
-        local index = findClientIndex(client)
+        local index = Server.findClientIndex(client)
         if(option.hoveredClients[index]) then
           option.hoveredClients[index] = false
           i = i + 1
@@ -73,7 +73,7 @@ Server:on('keyPressed', function(keyPressed, client)
   if(Gamestate.current() == Menu) then
     if( keyPressed == 'space' or keyPressed == 'return') then
       for i, option in ipairs(Gamestate.current().options) do
-        local index findClientIndex(client)
+        local index = Server.findClientIndex(client)
         if(option.lockedClients[index]) then
           Gamestate.current().options[i].lockedClients[index] = true
         else
@@ -98,7 +98,4 @@ end)
 
 -- end)
 
-return {
-  Server = Server, 
-  findClientIndex = findClientIndex 
-}
+return Server

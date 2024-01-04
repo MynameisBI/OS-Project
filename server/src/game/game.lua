@@ -8,12 +8,11 @@
 --- with one character got typed one image will be spawned
 
 local Loader = require 'libs.love-loader'
-local loadImages = require 'src/game/images'
+-- local loadImages = require 'src/game/images'
 local Game = {}
-local Server = require 'src/server' -- I want to user findClientIndex function but without initialize this, I cant use
 
 function Game:load()
-  self.images = loadImages(animalType) --dog or cat
+  -- self.images = loadImages(animalType) --dog or cat
   self.positions = {}
   self.directions = {}
   self.speeds = {}
@@ -22,7 +21,7 @@ end
 
 function Game:spawn(key, clientId)
   local imageId = math.random(1, 150)
-  local image = self.images[clientId][imageId]
+  -- local image = self.images[clientId][imageId]s
   self.positions[clientIdd] = {x = math.random(0, 1000), y = math.random(0, 1000)}
   self.directions[clientIdd] = {x = math.random(-1, 1), y = math.random(-1, 1)}
   self.speeds[clientId] = math.random(1, 10)
@@ -32,29 +31,29 @@ function Game:update(dt)
   --Create thread for each client
   for clientId, thread in pairs(self.threads) do
     thread:start(function()
-      for id, _ in pairs(self.images) do
-      self.positions[id].x = self.positions[id].x + self.directions[id].x * self.speeds[id]
-      self.positions[id].y = self.positions[id].y + self.directions[id].y * self.speeds[id]
-      end
+      -- for id, _ in pairs(self.images) do
+      --   self.positions[id].x = self.positions[id].x + self.directions[id].x * self.speeds[id]
+      --   self.positions[id].y = self.positions[id].y + self.directions[id].y * self.speeds[id]
+      -- end
     end)
   end
 end
 
 
 function love.keypressed(key, client)
-  local clientId = findClientIndex(client)
+  local clientId = Server.findClientIndex(client)
   Game:spawn(key, clientId)
 end
 
 function Game:draw()
-  for clientId, _ in pairs(self.images) do
-    for id, image in pairs(self.images[clientId]) do
-      local position = self.positions[clientId]
-      if position then
-        love.graphics.draw(image, position.x, position.y)
-      end
-    end
-  end  
+  -- for clientId, _ in pairs(self.images) do
+  --   for id, image in pairs(self.images[clientId]) do
+  --     local position = self.positions[clientId]
+  --     if position then
+  --       love.graphics.draw(image, position.x, position.y)
+  --     end
+  --   end
+  -- end  
 end
 
 
