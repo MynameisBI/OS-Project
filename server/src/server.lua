@@ -1,4 +1,5 @@
-local Server = Sock.newServer('*', 22122)
+local Server = Sock.newServer('localhost', 22122)
+local Load = require 'src/load/load'
 
 Server:setSerialization(bitser.dumps, bitser.loads)
 
@@ -25,6 +26,7 @@ Server:on('keyPressed', function(keyPressed, client)
   print(keyPressed)
 
   if(Gamestate.current() == Menu) then
+
     if keyPressed == 'a' or keyPressed == 'left' then
       for i, option in ipairs(Gamestate.current().options) do -- 
         local index = findClientIndex(client)
@@ -39,7 +41,6 @@ Server:on('keyPressed', function(keyPressed, client)
       end
 
     elseif keyPressed == 'd' or keyPressed =='right' then
-
       for i, option in ipairs(Gamestate.current().options) do
         local index = findClientIndex(client)
         if(option.hoveredClients[index]) then
@@ -48,20 +49,47 @@ Server:on('keyPressed', function(keyPressed, client)
           if(i > #Gamestate.current().options) then
             i = 1;
           end
-          Gamestate.current().option[i].hoveredClients[index] = true
+          Gamestate.current().options[i].hoveredClients[index] = true
         end
       end  
     end
-  end
 
+  end
+end)
+
+function allClientsLocked()
+  for i, option in ipairs(Gamestate.current().options) do
+    for i, locked in ipairs(option.lockedClients) do
+      if not locked then
+        return false
+      end
+    end
+  end
+  return true
+end
 
   -- continue for space
+Server:on('keyPressed', function(keyPressed, client)
+  if(Gamestate.current() == Menu) then
+    if( keyPressed == 'space' or keyPressed == 'return') then
+      for i, option in ipairs(Gamestate.current().options) do
+        local index findClientIndex(client)
+        if(option.lockedClients[index]) then
+          Gamestate.current().options[i].lockedClients[index] = true
+        else
+          Gamestate.current().options[i].lockedClients[index] = flase
+        end
+      end
 
-  --- After all locked in
-
-  Server:sendToAll('switch', 'load')
-
+      --if all clients are locked
+      if allClientsLocked() then
+        Server:sendToAll('switch', 'load')
+        Gamestate.switch(Load)
+      end
+    end  
+  end
 end)
+
 
 
 
@@ -70,4 +98,7 @@ end)
 
 -- end)
 
-return Server
+return {
+  Server = Server, 
+  findClientIndex = findClientIndex 
+}

@@ -18,13 +18,17 @@ end
 
 function love.update(dt)
   Server:update(dt)
+  local isGameAlive = Game:isAlive()
+    if(isGameAlive) then
+      Game:update(dt)
+    end
 end
 
 function love.draw()
   love.graphics.print("Server address: " .. Server:getAddress() .. ":" .. Server:getPort(), 0, 50)
   love.graphics.print("Total number of players: " ..  Server:getClientCount(), 0 , 100)
-  
-  -- for i = 1, #logs do
-  --   love.graphics.print(logs, 0, (i-1) * 12)
-  -- end
+  local isGameAlive = Game:isAlive()
+  if(isGameAlive) then
+    Game:draw()
+  end
 end
