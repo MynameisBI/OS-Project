@@ -36,11 +36,11 @@ function Button:removePlayerIndex(playerIndex)
 end
 
 function Button:update(dt,isHovered, isSelected)
-  if type(isHovered) == "table" and #isHovered == 4 then
+  if type(isHovered) == "table" then
     self.isHovered = isHovered
 end
 
-if type(isSelected) == "table" and #isSelected == 4 then
+if type(isSelected) == "table" then
     self.isSelected = isSelected
 end
 end
