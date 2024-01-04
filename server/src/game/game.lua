@@ -40,7 +40,7 @@ function Game:update(dt)
 end
 
 
-function love.keypressed(key, client)
+function Game:keypressed(key, client)
   local clientId = Server.findClientIndex(client)
   Game:spawn(key, clientId)
 end
