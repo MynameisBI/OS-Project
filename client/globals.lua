@@ -3,6 +3,7 @@ Sock = require 'libs.sock'
 Gamestate = require 'libs.gamestate'
 Class = require 'libs.middleclass'
 Lume = require 'libs.lume'
+LoveLoader = require 'libs.love-loader'
 
 Images = {
   ui = {
