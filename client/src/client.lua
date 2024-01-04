@@ -52,13 +52,12 @@ Client:on('updateLoad', function(options)
   
 end)
 
-
-Client:on('switchGame', function(gameNr)
-  Gamestate.switch(Game, gameNr)
+Client:on('updateGame', function(imageData)
+  Game.imageData = imageData
 end)
 
-Client:on('updateGame', function(options)
-  
-end)
+function Client:draw()
+
+end
 
 return Client

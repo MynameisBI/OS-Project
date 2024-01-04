@@ -19,7 +19,6 @@ function Game:load()
 end
 
 function Game:spawn(key, clientId)
-  local imageId = math.random(1, 150)
   self.positions[clientId] = {x = 540, y = 320}
   self.directions[clientId] = {x = math.random(-1, 1), y = math.random(-1, 1)}
   self.speeds[clientId] = math.random(1, 10)
@@ -48,7 +47,7 @@ function Game:update(dt)
   end
 
   --Send new imageData to all clients
-  Server:sendToAll('updateImages', self.imageData) 
+  Server:sendToAll('updateGame', self.imageData) 
 end
 
 
