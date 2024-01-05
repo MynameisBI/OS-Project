@@ -36,16 +36,18 @@ function Game:enter(from, gameTheme)
       local clientIndex, imageDatas, dt = ...
 
       for i = 1, #imageDatas do
-        imageDatas[i].x = imageDatas[i].x + imageDatas[i].x * imageDatas[i].speed * imageDatas[i].dirX * dt
-        imageDatas[i].y = imageDatas[i].y + imageDatas[i].y * imageDatas[i].speed * imageDatas[i].dirY * dt
-
         --If image is out of bound, change direction
-        if imageDatas[i].x < 0 or imageDatas[i].x > 1080 then
+        if (imageDatas[i].x < 0 and imageDatas[i].dirX < 0) or
+            (imageDatas[i].x > 1080 - 59 and imageDatas[i].dirX > 0) then
           imageDatas[i].dirX = -imageDatas[i].dirX
         end
-        if imageDatas[i].y < 0 or imageDatas[i].y > 720 then
+        if (imageDatas[i].y < 0 and imageDatas[i].dirY < 0) or
+          (imageDatas[i].y > 640 - 59 and imageDatas[i].dirY > 0) then
           imageDatas[i].dirY = -imageDatas[i].dirY
         end
+
+        imageDatas[i].x = imageDatas[i].x + imageDatas[i].speed * imageDatas[i].dirX * dt
+        imageDatas[i].y = imageDatas[i].y + imageDatas[i].speed * imageDatas[i].dirY * dt
       end
 
       love.thread.getChannel('imageData'..tostring(clientIndex)):push(imageDatas)
@@ -56,7 +58,7 @@ end
 function Game:spawn(key, clientId)
   local x, y = 540, 320
   local dirX, dirY = Lume.vector(math.random() * math.pi * 2, 1)
-  local speed = math.random(15, 25)
+  local speed = math.random(150, 250)
   table.insert(self.clientImages[clientId],
       BouncingImage(math.random(1, 100), x, y, dirX, dirY, speed))
 end

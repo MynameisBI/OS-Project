@@ -9,7 +9,7 @@ function BouncingImageDrawSystem:draw(imageData)
 
   love.graphics.setColor(1, 1, 1)
   love.graphics.draw(image, imageData.x, imageData.y,
-      0, 1080 / image:getWidth() * 0.1, 1080 / image:getHeight() * 0.1)
+      0, 1080 / image:getWidth() * 0.05, 1080 / image:getHeight() * 0.05)
 end
 
 return BouncingImageDrawSystem

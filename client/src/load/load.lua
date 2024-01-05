@@ -34,7 +34,7 @@ function Loading:update(dt)
     loader.update() -- You must do this on each iteration until all resources are loaded
   end
 
-  rotationAngle = rotationAngle + dt * 3
+  rotationAngle = rotationAngle + dt * 3.5
 
   if finishedLoading then
 
