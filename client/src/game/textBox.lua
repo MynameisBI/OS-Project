@@ -9,28 +9,11 @@ local IMAGES = {
 
 local SW, SH = 0.17, 0.125
 
-
---split the string to chars in setNewWord
-function splitString(str)
-  local chars = {}
-  for i = 1, #str do
-      local char = str:sub(i, i)
-      table.insert(chars, char)
-  end
-  return chars
-end
-
 function TextBox:initialize(playerIndex, x, y)
   self.playerIndex = playerIndex
-  self.x, self.y = x, y
-  self.currentCharacters = {"d","o","g"}
-  self.typedCharacters = {}
-  self.characterIndex = 1
-end
 
-function TextBox:setNewWord(word)
-  --setNewWord from word to list
-  self.currentCharacters = splitString(word)
+  self.x, self.y = x, y
+  self.currentCharacters = {}
   self.typedCharacters = {}
   self.characterIndex = 1
 end
@@ -52,21 +35,6 @@ function TextBox:draw()
   love.graphics.printf(self.typedCharacters,
       self.x - IMAGES[self.playerIndex]:getWidth() / 2 * SW, self.y + 50,
       IMAGES[self.playerIndex]:getWidth() * SW, 'center', 0, 1, 1)
-end
-
-function TextBox:keypressed(key, scancode, isRepeat)
-  if self.characterIndex <= #self.currentCharacters then
-    local nextChar = self.currentCharacters[self.characterIndex]
-    if key == nextChar then
-        table.insert(self.typedCharacters, key)
-        self.characterIndex = self.characterIndex + 1
-    end
-
-    -- Check if the word is completely typed
-    if #self.currentCharacters == #self.typedCharacters then
-      self:setNewWord("cat")
-    end
-  end
 end
 
 return TextBox

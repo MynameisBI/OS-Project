@@ -6,9 +6,9 @@ local Game = {}
 local SW, SH = love.graphics.getDimensions()
 
 
-function Game:enter(previous, gameNumber)
+function Game:enter(previous, gameNumber, images)
     self.gameNumber= gameNumber or 1
-    self.images = {}
+    self.images = images or {}
     self.positions = {}
     self.textBoxes = {
         TextBox(1, SW * 0.25, SH * 0.25),
@@ -29,12 +29,12 @@ function Game:draw()
     love.graphics.print("Press 'Escape' to go back to the menu  ")
 
     --if arrays of images and positions are not empty, draw them
-    if(self.images ~= nil) then
-        for clientId, image in pairs(self.images) do
-            local position = self.positions[clientId]
-            love.graphics.draw(image, position.x, position.y)
-        end
-    end
+    -- if(self.images ~= nil) then
+    --     for clientId, image in pairs(self.images) do
+    --         local position = self.positions[clientId]
+    --         love.graphics.draw(image, position.x, position.y)
+    --     end
+    -- end
 end
 
 function Game:spawnImage(clientId)
@@ -46,9 +46,8 @@ function Game:spawnImage(clientId)
 end
 
 function Game:keypressed(key, scancode, isRepeat)
-    Lume.each(self.textBoxes, 'keypressed', key, scancode, isRepeat)
-    local clientId = 1 --temporary, has to be changed later
-    self:spawnImage(clientId)
+    -- local clientId = 1 --temporary, has to be changed later
+    -- self:spawnImage(clientId)
     if key == 'escape' then
         Gamestate.switch(require 'src.menu.menu')
     end

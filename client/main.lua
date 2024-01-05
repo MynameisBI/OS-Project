@@ -7,8 +7,8 @@ Client = require 'src.client'
 
 function love.load(args)
   love.graphics.setBackgroundColor(56/255, 41/255, 83/255)
-  -- Gamestate.switch(Game)
-  -- Gamestate.registerEvents()
+  Gamestate.switch(Game)
+  Gamestate.registerEvents()
   Client:connect()
 end
 

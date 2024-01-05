@@ -27,11 +27,12 @@ Server.findClientIndex = function(client)
 end
 
 Server:on('keyPressed', function(keyPressed, client)
+  local clientIndex = Server.findClientIndex(client)
+
+  print(('Client %d press %s'):format(clientIndex, keyPressed))
+
   if(Gamestate.current() == Menu) then
     local menu = Gamestate.current()
-    local clientIndex = Server.findClientIndex(client)
-
-    -- print(('Client %d press %s'):format(clientIndex, keyPressed))
 
     if keyPressed == 'a' or keyPressed == 'left' then
       local optionIndex, status = getClientOption(clientIndex)
@@ -83,6 +84,11 @@ Server:on('keyPressed', function(keyPressed, client)
       end
     end  
 
+  elseif Gamestate.current() == Game then
+    local game = Gamestate.current()
+
+    game.textBoxes[clientIndex]:keypressed(keyPressed)
+
   end
 end)
 
@@ -127,6 +133,7 @@ Server:on('completeLoad', function(data, client)
   end
 
   if allClientsDoneLoading then
+    Gamestate.switch(Game, loadState.gameNumber)
     Server:sendToAll('switchGame')
   end
 end)

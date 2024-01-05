@@ -2,7 +2,6 @@
 
 --love-loader
 local loader = require 'libs.love-loader'
-local images = {}
 local finishedLoading = false
 
 
@@ -28,8 +27,9 @@ function Loading:enter(previous, gameNr)
     self.throbber = Images.ui.skeletonButton
   end
 
+  self.images = {}
   for i = 1, 150 do
-    loader.newImage(images, 'cat' .. i, 'assets/cat/cat (' .. i .. ').jpg')
+    loader.newImage(self.images, 'cat' .. i, 'assets/cat/cat (' .. i .. ').jpg')
   end
 
   loader.start(function()
