@@ -52,12 +52,13 @@ Client:on('updateLoad', function(options)
   
 end)
 
+Client:on('switchGame', function()
+  local loadState = Gamestate.current()
+  Gamestate.switch(Game, loadState.gameNumber)
+end)
+
 Client:on('updateGame', function(imageData)
   Game.imageData = imageData
 end)
-
-function Client:draw()
-
-end
 
 return Client

@@ -1,6 +1,7 @@
 local Button = Class('Button')
 
-local MARGIN = 25
+local HOVERED_MARGIN = 30
+local LOCKED_MARGIN = 14
 
 function Button:initialize(text, image, x, y, w, h, onHit, onHovered)
   self.text = text
@@ -20,6 +21,19 @@ function Button:initialize(text, image, x, y, w, h, onHit, onHovered)
 
   self.isHovered = {}  -- Initialize as a table of booleans
   self.isSelected = {}  -- Initialize as a table of booleans
+
+  self.playerStatusHoveredPosOffsets = {
+    {x = -HOVERED_MARGIN, y = -HOVERED_MARGIN},
+    {x = HOVERED_MARGIN + self.width, y = -HOVERED_MARGIN},
+    {x = HOVERED_MARGIN + self.width, y = HOVERED_MARGIN + self.height},
+    {x = -HOVERED_MARGIN, y = HOVERED_MARGIN + self.height},
+  }
+  self.playerStatusLockedPosOffsets = {
+    {x = -LOCKED_MARGIN, y = -LOCKED_MARGIN},
+    {x = LOCKED_MARGIN + self.width, y = -LOCKED_MARGIN},
+    {x = LOCKED_MARGIN + self.width, y = LOCKED_MARGIN + self.height},
+    {x = -LOCKED_MARGIN, y = LOCKED_MARGIN + self.height},
+  }
 end
 
 function Button:addPlayerIndex(playerIndex)
@@ -44,43 +58,7 @@ function Button:update(dt,isHovered, isSelected)
 end
 
 function Button:draw()
-
   love.graphics.setColor(1, 1, 1)
-
-  for i, player in ipairs(self.isHovered) do
-    local isHovered = self.isHovered[i]
-    local isSelected = self.isSelected[i]
-
-    if isHovered or isSelected then
-      local label = isSelected and 's' or 'h'
-
-      if isSelected then
-        love.graphics.setColor(0, 1, 0)
-      end
---set font size todo
-      if i == 1 then
-        love.graphics.printf(tostring(i) .. " " .. label, self.x - MARGIN, self.y - MARGIN, self.width, 'left')
-      elseif i == 2 then
-        love.graphics.printf(tostring(i) .. " " .. label, self.x + MARGIN, self.y - MARGIN, self.width, 'right')
-      elseif i == 3 then
-        love.graphics.printf(tostring(i) .. " " .. label, self.x + MARGIN, self.y + self.height + MARGIN, self.width, 'right')
-      elseif i == 4 then
-        love.graphics.printf(tostring(i) .. " " .. label, self.x - MARGIN, self.y + self.height + MARGIN, self.width, 'left')
-      end
-    
-      love.graphics.setColor(1, 1, 1)
-    end
-  end
-
---second implementation: with separate function
---drawItems(self.isHovered, 'h', self.x, self.y, self.width, self.height, MARGIN)
---drawItems(self.isSelected, 's', self.x, self.y, self.width, self.height, MARGIN)
---do i need for loop and if selfisHovered[i] and selfisSelected[i] then error?
---(if they have same value which cant happen)
---logic to draw just one text for selected or hovered
--- (even needed? because it can only have one state if value calculated correctly)
--- implement so it draws them at the corners
-
 
 --code for mouse
     self.last = self.now
@@ -118,7 +96,7 @@ function Button:draw()
         self.text,
         self.font,
         self.x - 40,
-        self.y + self.height + 12,
+        self.y + self.height + 55,
         self.width + 80,
         'center'
       )
@@ -143,24 +121,54 @@ function Button:draw()
         'center'
       )
   end
+
+  for i = 1, #self.isHovered do
+    self:_drawPlayerStatus(i, self.isHovered[i], self.isSelected[i])
+  end
 end
 
---separate function (maybe not needed)
-function drawItems(items, label, x, y, width, height, margin)
-  for i, player in ipairs(items) do
-    if items[i] then
-      if i == 1 then
-        love.graphics.printf(tostring(i) .. " " .. label, x - margin, y - margin, width, 'left')
-        love.graphics.circle('line',x - margin, y - margin, 10)
-      elseif i == 2 then
-        love.graphics.printf(tostring(i) .. " " .. label, x + margin, y - margin, width, 'right')
-      elseif i == 3 then
-        love.graphics.printf(tostring(i) .. " " .. label, x + margin, y + height + margin, width, 'right')
-      elseif i == 4 then
-        love.graphics.printf(tostring(i) .. " " .. label, x - margin, y + height + margin, width, 'left')
-      end
-    end
+function Button:_drawPlayerStatus(playerIndex, isHovered, isSelected)
+  if not (isHovered or isSelected) then return end
+
+  local x, y
+  local c = {}
+  local opacity
+  
+  if playerIndex == 1 then
+    c[1] = 0.8; c[2] = 0.45; c[3] = 0.8
+  elseif playerIndex == 2 then
+    c[1] = 0.8; c[2] = 0.8; c[3] = 0.3
+  elseif playerIndex == 3 then
+    c[1] = 0.4; c[2] = 0.6; c[3] = 0.9
+  elseif playerIndex == 4 then
+    c[1] = 0.5; c[2] = 0.8; c[3] = 0.5
   end
+
+  if isHovered then
+    x = self.x + self.playerStatusHoveredPosOffsets[playerIndex].x
+    y = self.y + self.playerStatusHoveredPosOffsets[playerIndex].y
+    opacity = 0.5
+  elseif isSelected then
+    x = self.x + self.playerStatusLockedPosOffsets[playerIndex].x
+    y = self.y + self.playerStatusLockedPosOffsets[playerIndex].y
+    opacity = 1
+  end
+  c[4] = opacity
+
+  love.graphics.setColor(0.7, 0.7, 0.7, 0.1)
+  love.graphics.circle('fill', x, y, 35)
+
+  love.graphics.setColor(c)
+  love.graphics.setLineWidth(9)
+  love.graphics.circle('line', x, y, 30)
+  love.graphics.setLineWidth(1)
+
+  love.graphics.setColor(c)
+  local text = 'P'..tostring(playerIndex)
+  love.graphics.setColor(c)
+  love.graphics.setFont(Fonts.small)
+  love.graphics.print(text, x, y, 0, 1, 1,
+      Fonts.small:getWidth(text) / 2, Fonts.small:getHeight() / 2)
 end
 
 return Button
