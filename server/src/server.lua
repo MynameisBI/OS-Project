@@ -26,6 +26,16 @@ Server.findClientIndex = function(client)
   end
 end
 
+Server.getGameTheme = function(optionIndex)
+  if optionIndex == 1 then
+    return 'cat'
+  elseif optionIndex == 2 then
+    return 'dog'
+  elseif optionIndex == 3 then
+    return 'skeleton'
+  end
+end
+
 Server:on('keyPressed', function(keyPressed, client)
   local clientIndex = Server.findClientIndex(client)
 
@@ -74,8 +84,8 @@ Server:on('keyPressed', function(keyPressed, client)
         menu.options[optionIndex].lockedClients[clientIndex] = true
 
         if allClientsLockedOption(optionIndex) then
-          Server:sendToAll('switchLoad', optionIndex)
-          Gamestate.switch(Load, optionIndex)
+          Server:sendToAll('switchLoad', Server.getGameTheme(optionIndex))
+          Gamestate.switch(Load, Server.getGameTheme(optionIndex))
         end
 
       elseif status == 'locked' then
@@ -88,6 +98,8 @@ Server:on('keyPressed', function(keyPressed, client)
     local game = Gamestate.current()
 
     game.textBoxes[clientIndex]:keypressed(keyPressed)
+    local clientId = Server.findClientIndex(client)
+    game:spawn(keyPressed, clientIndex)
 
   end
 end)
@@ -133,7 +145,7 @@ Server:on('completeLoad', function(data, client)
   end
 
   if allClientsDoneLoading then
-    Gamestate.switch(Game, loadState.gameNumber)
+    Gamestate.switch(Game, loadState.gameTheme)
     Server:sendToAll('switchGame')
   end
 end)

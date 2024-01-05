@@ -33,8 +33,8 @@ Client:on('updateMenu', function(options)
 end)
 
 
-Client:on('switchLoad', function(gameNumber)
-  Gamestate.switch(Load, {gameNumber = gameNumber})
+Client:on('switchLoad', function(gameTheme)
+  Gamestate.switch(Load, gameTheme)
 end)
 
 Client:on('updateLoad', function(options)
@@ -44,7 +44,7 @@ end)
 
 Client:on('switchGame', function()
   local loadState = Gamestate.current()
-  Gamestate.switch(Game, loadState.gameNumber, loadState.images)
+  Gamestate.switch(Game, loadState.gameTheme, loadState.images)
 end)
 
 Client:on('updateGame', function(state)
@@ -57,6 +57,8 @@ Client:on('updateGame', function(state)
     game.textBoxes[i].typedCharacters = state.textBoxes[i].typedCharacters
     game.textBoxes[i].score = state.textBoxes[i].score
   end
+
+  game.imageDatas = state.imageDatas
 end)
 
 return Client

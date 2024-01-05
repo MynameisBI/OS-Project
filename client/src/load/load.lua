@@ -9,27 +9,17 @@ local rotationAngle = 0
 
 local Loading = {}
 
-function Loading:init()
-    self.gameNumber = nil  -- Initialize self.gameNumber
-end
-
-function Loading:enter(previous, gameNr)
+function Loading:enter(previous, gameTheme)
   print("Entered Loading State")
-  self.gameNumber = gameNr.gameNumber
+  self.gameTheme = gameTheme
 
   rotationAngle = 0
-  -- loadingTimer = 0
-  if self.gameNumber == 1 then
-    self.throbber = Images.ui.catButton
-  elseif self.gameNumber == 2 then
-    self.throbber = Images.ui.dogButton
-  elseif self.gameNumber == 3 then
-    self.throbber = Images.ui.skeletonButton
-  end
+  self.throbber = Images.ui[gameTheme..'Button']
 
   self.images = {}
   for i = 1, 150 do
-    loader.newImage(self.images, 'cat' .. i, 'assets/cat/cat (' .. i .. ').jpg')
+    loader.newImage(self.images, i,
+        ('assets/%s/%s (%d).jpg'):format(gameTheme, gameTheme, i))
   end
 
   loader.start(function()
@@ -44,12 +34,10 @@ function Loading:update(dt)
     loader.update() -- You must do this on each iteration until all resources are loaded
   end
 
-  rotationAngle = rotationAngle + dt * 3.5
+  rotationAngle = rotationAngle + dt * 3
 
-  --switch to game:
   if finishedLoading then
-    -- print("Finished Loading State")
-    -- Gamestate.switch(Game, self.gameNumber)
+
   end
 end
 

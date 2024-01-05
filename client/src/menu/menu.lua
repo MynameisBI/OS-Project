@@ -12,19 +12,19 @@ function Menu:enter(previous)
         Button(
             "CAT", Images.ui.catButton,
             160, 175, BUTTON_WIDTH, BUTTON_HEIGHT,
-            function(b) Gamestate.switch(Load, {gameNumber = 1}) end,
+            function(b) Gamestate.switch(Load, 'cat') end,
             function(b) self.currentHoveredButton = b end
         ),
         Button(
             "DOG", Images.ui.dogButton,
             460, 175, BUTTON_WIDTH, BUTTON_HEIGHT,
-            function(b) Gamestate.switch(Load, {gameNumber = 2}) end,
+            function(b) Gamestate.switch(Load, 'dog') end,
             function(b) self.currentHoveredButton = b end
         ),
         Button(
             "SKELETON", Images.ui.skeletonButton,
             760, 175, BUTTON_WIDTH, BUTTON_HEIGHT,
-            function(b) Gamestate.switch(Load, {gameNumber = 3}) end,
+            function(b) Gamestate.switch(Load, 'skeleton') end,
             function(b) self.currentHoveredButton = b end
         ),
         Button(

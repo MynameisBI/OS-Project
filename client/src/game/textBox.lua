@@ -27,14 +27,24 @@ function TextBox:draw()
   love.graphics.draw(IMAGES[self.playerIndex], self.x, self.y, 0, SW, SH,
       IMAGES[self.playerIndex]:getWidth() / 2, IMAGES[self.playerIndex]:getHeight() / 2)
 
-  love.graphics.setColor(1, 1, 1)
+  love.graphics.setColor(0.2, 0.2, 0.2, 0.6)
   love.graphics.setFont(Fonts.medium)
-  love.graphics.printf(self.currentCharacters,
-      self.x - IMAGES[self.playerIndex]:getWidth() / 2 * SW, self.y - 20,
-      IMAGES[self.playerIndex]:getWidth() * SW, 'center', 0, 1, 1)
-  love.graphics.printf(self.typedCharacters,
-      self.x - IMAGES[self.playerIndex]:getWidth() / 2 * SW, self.y + 50,
-      IMAGES[self.playerIndex]:getWidth() * SW, 'center', 0, 1, 1)
+  love.graphics.print(self.currentCharacters,
+      self.x - Fonts.medium:getWidth(self:getCurrentWord()) / 2,
+      self.y - Fonts.medium:getHeight() / 2, 0, 1, 1)
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print(self.typedCharacters,
+      self.x - Fonts.medium:getWidth(self:getCurrentWord()) / 2,
+      self.y - Fonts.medium:getHeight() / 2, 0, 1, 1)
+end
+
+function TextBox:getCurrentWord()
+  local w = ''
+  for i = 1, #self.currentCharacters do
+    w = w..self.currentCharacters[i]
+  end
+  return w
 end
 
 return TextBox
