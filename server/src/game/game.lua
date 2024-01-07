@@ -9,13 +9,46 @@
 local TextBox = require 'src.game.textBox'
 local BouncingImage = require 'src.game.bouncingImage'
 
+
 -- local Loader = require 'libs.love-loader'
 local Game = {}
 
 function Game:enter(from, gameTheme)
   self.gameTheme = gameTheme
+  self.words = {}
 
-  self.words = {'never', 'gonna', 'give', 'you', 'up'}
+  local wordArray = {}
+  local totalWords = 0
+  if(gameTheme == 'dog') then
+    local DogBreedsFile = io.open("client/assets/DogBreeds.txt", "r")
+    for line in DogBreedsFile:lines() do 
+      table.insert(wordArray, line)
+      totalWords = totalWords + 1
+    end
+  else
+    local CatBreedsFile = io.open("client/assets/CatBreeds.txt", "r")
+    for line in CatBreedsFile:lines() do 
+      table.insert(wordArray, line)
+      totalWords = totalWords + 1
+    end
+  end
+
+  for i=1, 10 do
+    repeat
+    local index = math.random(1, totalWords)
+    local randomWord = wordArray[index]
+
+    local wordExists = false
+    for _, word in ipairs(self.words) do
+      if(word == randomWord) then
+        wordExists = true
+        break
+      end
+    end
+    until not wordExists
+    table.insert(self.words, random)
+  end
+      
 
   self.textBoxes = {
     TextBox(), TextBox(), TextBox(), TextBox(),
