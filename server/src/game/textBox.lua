@@ -14,8 +14,6 @@ function TextBox:initialize()
 end
 
 function TextBox:setNewWord()
-  print('set new word')
-
   --setNewWord from word to list
   self.currentWordIndex = self.currentWordIndex + 1
   local word = Gamestate.current().words[self.currentWordIndex]
@@ -27,6 +25,11 @@ function TextBox:setNewWord()
   self.currentCharacters = self:splitString(word)
   self.typedCharacters = {}
   self.characterIndex = 1
+
+  for i = 1, #self.currentCharacters do
+    print(("%s"):format(self.currentCharacters[i]))
+  end
+  print()
 end
 
 function TextBox:splitString(str)
@@ -41,14 +44,15 @@ end
 function TextBox:keypressed(key)
   if self.characterIndex <= #self.currentCharacters then
     local nextChar = self.currentCharacters[self.characterIndex]
-    if key == nextChar then
-        table.insert(self.typedCharacters, key)
-        self.characterIndex = self.characterIndex + 1
 
-        if #self.currentCharacters == #self.typedCharacters then
-          self.score = self.score + 1
-          self:setNewWord()
-        end
+    if (key == 'space' and ' ' == nextChar) or key == nextChar then
+      table.insert(self.typedCharacters, nextChar)
+      self.characterIndex = self.characterIndex + 1
+
+      if #self.currentCharacters == #self.typedCharacters then
+        self.score = self.score + 1
+        self:setNewWord()
+      end
     end
   end
 end

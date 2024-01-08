@@ -18,7 +18,7 @@ function Game:enter(previous, gameTheme, images)
     }
 
     self.imageDatas = {}
-    self.bouncingImageDrawSystem = BouncingImageDrawSystem(images)
+    self.bouncingImageDrawSystem = BouncingImageDrawSystem(gameTheme, images)
 end
 
 function Game:update(dt)
@@ -36,6 +36,7 @@ function Game:draw()
     love.graphics.setFont(Fonts.small)
     love.graphics.print("Current game theme: ".. self.gameTheme)
     love.graphics.print("Press 'Escape' to go back to the menu", 0, 24)
+    love.graphics.print("FPS: "..love.timer.getFPS(), 0, 48)
 end
 
 function Game:keypressed(key, scancode, isRepeat)

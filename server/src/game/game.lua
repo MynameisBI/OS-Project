@@ -20,13 +20,13 @@ function Game:enter(from, gameTheme)
   local wordArray = {}
   local totalWords = 0
   if(gameTheme == 'dog') then
-    local DogBreedsFile = io.open("client/assets/DogBreeds.txt", "r")
+    local DogBreedsFile = io.open("assets/DogBreeds.txt", "r")
     for line in DogBreedsFile:lines() do 
       table.insert(wordArray, line)
       totalWords = totalWords + 1
     end
   else
-    local CatBreedsFile = io.open("client/assets/CatBreeds.txt", "r")
+    local CatBreedsFile = io.open("assets/CatBreeds.txt", "r")
     for line in CatBreedsFile:lines() do 
       table.insert(wordArray, line)
       totalWords = totalWords + 1
@@ -34,19 +34,20 @@ function Game:enter(from, gameTheme)
   end
 
   for i=1, 10 do
+    local randomWord
     repeat
-    local index = math.random(1, totalWords)
-    local randomWord = wordArray[index]
+      local index = math.random(1, totalWords)
+      randomWord = wordArray[index]
 
-    local wordExists = false
-    for _, word in ipairs(self.words) do
-      if(word == randomWord) then
-        wordExists = true
-        break
+      local wordExists = false
+      for _, word in ipairs(self.words) do
+        if(word == randomWord) then
+          wordExists = true
+          break
+        end
       end
-    end
     until not wordExists
-    table.insert(self.words, random)
+    table.insert(self.words, (randomWord):lower())
   end
       
 
@@ -71,11 +72,11 @@ function Game:enter(from, gameTheme)
       for i = 1, #imageDatas do
         --If image is out of bound, change direction
         if (imageDatas[i].x < 0 and imageDatas[i].dirX < 0) or
-            (imageDatas[i].x > 1080 - 59 and imageDatas[i].dirX > 0) then
+            (imageDatas[i].x > 1080 - 60 and imageDatas[i].dirX > 0) then
           imageDatas[i].dirX = -imageDatas[i].dirX
         end
         if (imageDatas[i].y < 0 and imageDatas[i].dirY < 0) or
-          (imageDatas[i].y > 640 - 59 and imageDatas[i].dirY > 0) then
+          (imageDatas[i].y > 640 - 60 and imageDatas[i].dirY > 0) then
           imageDatas[i].dirY = -imageDatas[i].dirY
         end
 
