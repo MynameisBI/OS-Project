@@ -19,18 +19,14 @@ function Game:enter(from, gameTheme)
 
   local wordArray = {}
   local totalWords = 0
-  if(gameTheme == 'dog') then
-    local DogBreedsFile = io.open("assets/DogBreeds.txt", "r")
-    for line in DogBreedsFile:lines() do 
-      table.insert(wordArray, line)
-      totalWords = totalWords + 1
-    end
-  else
-    local CatBreedsFile = io.open("assets/CatBreeds.txt", "r")
-    for line in CatBreedsFile:lines() do 
-      table.insert(wordArray, line)
-      totalWords = totalWords + 1
-    end
+  local wordFile
+  if gameTheme == 'dog' then wordFile = io.open("assets/DogBreeds.txt", "r")
+  elseif gameTheme == 'cat' then wordFile = io.open("assets/CatBreeds.txt", "r")
+  elseif gameTheme == 'skeleton' then wordFile = io.open("assets/Bones.txt", "r")
+  end
+  for line in wordFile:lines() do 
+    table.insert(wordArray, line)
+    totalWords = totalWords + 1
   end
 
   for i=1, 10 do

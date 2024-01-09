@@ -59,7 +59,6 @@ Cairn Terrier
 Irish Setter
 Miniature Pinscher
 Russell Terrier
-Old English Sheepdog
 Lagotti Romagnoli
 Biewer Terrier
 Dogues de Bordeaux
@@ -79,12 +78,10 @@ Standard Schnauzer
 Border Terrier
 Pekingese
 Brussels Griffon
-Bouviers des Flandres
 Gordon Setter
 Norwegian Elkhound
 Borzoi
 Wire Fox Terrier
-Flat-Coated Retriever
 Belgian Tervuren
 Japanese Chin
 Tibetan Terrier

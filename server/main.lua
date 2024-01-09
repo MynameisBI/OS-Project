@@ -12,8 +12,6 @@ local logs = {
 function love.load(args)
   math.randomseed(os.time())
 
-  love.window.setMode(1000,600)
-  love.window.setTitle("Server")
   Gamestate.registerEvents()
   Gamestate.switch(Menu)
 end

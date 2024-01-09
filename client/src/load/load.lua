@@ -17,7 +17,12 @@ function Loading:enter(previous, gameTheme)
   self.throbber = Images.ui[gameTheme..'Button']
 
   self.images = {}
-  for i = 1, 150 do
+  local imageCount
+  if gameTheme == 'cat' then imageCount = 150
+  elseif gameTheme == 'dog' then imageCount = 150
+  elseif gameTheme == 'skeleton' then imageCount = 135
+  end
+  for i = 1, imageCount do
     loader.newImage(self.images, i,
         ('assets/%s/%s (%d).jpg'):format(gameTheme, gameTheme, i))
   end

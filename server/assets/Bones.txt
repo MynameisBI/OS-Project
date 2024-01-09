@@ -1,0 +1,55 @@
+Cervical vertebrae
+Thoracic vertebrae
+Lumbar vertebrae
+Sacrum
+Coccygeal vertebrae
+Sternum
+Ribs
+Occipital bone
+Parietal bones
+Frontal bone
+Temporal bones
+Sphenoid bone
+Ethmoid bone
+Nasal bones
+Maxillae
+Lacrimal bone
+Zygomatic bone
+Palatine bone
+Vomer
+Hyoid bone
+Mandible
+Malleus
+Incus
+Stapes
+Humerus
+Pectoral girdle
+Scapula
+Clavicle
+Ulna
+Radius
+Carpals
+Scaphoid bone
+Lunate bone
+Triquetral bone
+Pisiform bone
+Trapezium
+Trapezoid bone
+Capitate bone
+Hamate bone
+Metacarpals
+Proximal phalanges
+Distal phalanges
+Coxal bones
+Coccyx
+Femur
+Patella
+Tibia
+Fibula
+Calcaneus
+Talus
+Navicular bone
+Cuboid bone
+Metatarsals
+Proximal phalanges
+Distal phalanges
