@@ -15,6 +15,11 @@ local Game = {}
 
 function Game:enter(from, gameTheme)
   self.gameTheme = gameTheme
+  if gameTheme == 'cat' or gameTheme == 'dog' then
+    self.imageCount = 150
+  elseif gameTheme == 'skeleton' then
+    self.imageCount = 135
+  end
   self.words = {}
 
   local wordArray = {}
@@ -29,7 +34,7 @@ function Game:enter(from, gameTheme)
     totalWords = totalWords + 1
   end
 
-  for i=1, 10 do
+  for i = 1, 10 do
     local randomWord
     repeat
       local index = math.random(1, totalWords)
@@ -48,7 +53,7 @@ function Game:enter(from, gameTheme)
       
 
   self.textBoxes = {
-    TextBox(), TextBox(), TextBox(), TextBox(),
+    TextBox(1), TextBox(2), TextBox(3), TextBox(4),
   }
 
   -- self.positions = {}
@@ -86,11 +91,16 @@ function Game:enter(from, gameTheme)
 end
 
 function Game:spawn(key, clientId)
-  local x, y = 540, 320
+  if clientId == 1 then x, y = 270, 160
+  elseif clientId == 2 then x, y = 810, 160
+  elseif clientId == 3 then x, y = 270, 480
+  elseif clientId == 4 then x, y = 810, 480
+  end
   local dirX, dirY = Lume.vector(math.random() * math.pi * 2, 1)
   local speed = math.random(150, 250)
+
   table.insert(self.clientImages[clientId],
-      BouncingImage(math.random(1, 100), x, y, dirX, dirY, speed))
+      BouncingImage(math.random(1, self.imageCount), x, y, dirX, dirY, speed))
 end
 
 function Game:update(dt)

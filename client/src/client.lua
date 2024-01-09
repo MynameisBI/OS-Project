@@ -48,8 +48,6 @@ Client:on('switchGame', function()
 end)
 
 Client:on('updateGame', function(state)
-  -- Game.imageData = imageData
-
   local game = Gamestate.current()
 
   for i = 1, 4 do
@@ -59,6 +57,12 @@ Client:on('updateGame', function(state)
   end
 
   game.imageDatas = state.imageDatas
+end)
+
+Client:on('playerWin', function(playerIndex)
+  local game = Gamestate.current()
+
+  game:onPlayerWin(playerIndex)
 end)
 
 return Client

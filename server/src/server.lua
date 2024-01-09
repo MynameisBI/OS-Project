@@ -96,10 +96,7 @@ Server:on('keyPressed', function(keyPressed, client)
 
   elseif Gamestate.current() == Game then
     local game = Gamestate.current()
-
     game.textBoxes[clientIndex]:keypressed(keyPressed)
-    local clientId = Server.findClientIndex(client)
-    game:spawn(keyPressed, clientIndex)
 
   end
 end)

@@ -1,6 +1,6 @@
 local TextBox = Class('TextBox')
 
-function TextBox:initialize()
+function TextBox:initialize(playerIndex)
   self.playerIndex = playerIndex
   self.currentCharacters = {}
   self.typedCharacters = {}
@@ -19,17 +19,14 @@ function TextBox:setNewWord()
   local word = Gamestate.current().words[self.currentWordIndex]
 
   if word == nil then
-    print('Some one win')
+    print(self.playerIndex..' win')
+    Server:sendToAll('playerWin', self.playerIndex)
+    return
   end
 
   self.currentCharacters = self:splitString(word)
   self.typedCharacters = {}
   self.characterIndex = 1
-
-  for i = 1, #self.currentCharacters do
-    print(("%s"):format(self.currentCharacters[i]))
-  end
-  print()
 end
 
 function TextBox:splitString(str)
@@ -51,6 +48,10 @@ function TextBox:keypressed(key)
 
       if #self.currentCharacters == #self.typedCharacters then
         self.score = self.score + 1
+        
+        for i = 1, 5 do Gamestate.current():spawn(keyPressed, self.playerIndex)
+        end
+
         self:setNewWord()
       end
     end
