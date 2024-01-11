@@ -51,7 +51,7 @@ end
 
 function Button:update(dt,isHovered, isSelected)
   assert(type(isHovered) == "table", "Invalid isHovered argument")
-  assert(type(isHovered) == "table", "Invalid isSelected argument")
+  assert(type(isSelected) == "table", "Invalid isSelected argument")
 
   self.isHovered = isHovered
   self.isSelected = isSelected
