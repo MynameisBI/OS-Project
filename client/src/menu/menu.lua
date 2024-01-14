@@ -27,10 +27,6 @@ function Menu:enter(previous)
             function(b) Gamestate.switch(Load, 'skeleton') end,
             function(b) self.currentHoveredButton = b end
         ),
-        Button(
-            "Exit Game", nil, 700, 540, 320, 60,
-            function(b) love.event.quit(0) end
-        ),
     }
     self.currentHoveredButton = nil
 end
