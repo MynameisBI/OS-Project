@@ -13,12 +13,6 @@ function Button:initialize(text, image, x, y, w, h, onHit, onHovered)
 
   self.font = Fonts.medium
 
-  --old stuff: (to be removed)
-  self.onHit = onHit or function() end
-  self.onHovered = onHovered or function() end
-  self.now = false
-  self.last = false
-
   self.isHovered = {}  -- Initialize as a table of booleans
   self.isSelected = {}  -- Initialize as a table of booleans
 
@@ -58,29 +52,9 @@ function Button:update(dt,isHovered, isSelected)
 end
 
 function Button:draw()
-  love.graphics.setColor(1, 1, 1)
-
---code for mouse
-  self.last = self.now
 
   local color= {1,1,1, 1.0}
-  local mx, my = love.mouse.getPosition()
-  local hot = mx > self.x and mx < self.x + self.width and
-              my > self.y and my < self.y + self.height
-  if hot then
-      self.onHovered(self)
-      color = {0.5, 0.5, 0.5, 1.0}
-  else
-    
-  end
 
-  self.now = love.mouse.isDown(1)
-  if self.now and not self.last and hot then
-      self.onHit(self)
-  end
-  
-
---code for buttons
   love.graphics.setColor(color)
   if self.image then
     love.graphics.draw(

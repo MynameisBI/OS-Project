@@ -1,6 +1,5 @@
 -- loading.lua
 
---love-loader
 local loader = require 'libs.love-loader'
 local finishedLoading = false
 
@@ -34,9 +33,8 @@ function Loading:enter(previous, gameTheme)
 end
 
 function Loading:update(dt)
-  --love-loader
   if not finishedLoading then
-    loader.update() -- You must do this on each iteration until all resources are loaded
+    loader.update() --Do on each iteration until all resources are loaded
   end
 
   rotationAngle = rotationAngle + dt * 3.5
@@ -52,13 +50,7 @@ function Loading:draw()
   local percent = 0
   if loader.resourceCount ~= 0 then percent = loader.loadedCount / loader.resourceCount end
 
-  if finishedLoading then --not needed for game just do else part with  "if not finishedloading then"
---    for i = 1, 150 do
---      local key = 'cat' .. i
---      local x = (i - 100) * 10 
---      local y = 0
---      love.graphics.draw(images[key], x, y)
---    end
+  if finishedLoading then 
     love.graphics.setColor(0.96, 0.96, 0.96)
     love.graphics.setFont(Fonts.medium)
     love.graphics.print("Waiting for other people",
@@ -74,7 +66,6 @@ function Loading:draw()
   love.graphics.draw(Images.ui.emptyBar, x, y,
       0, 0.275, 0.275, Images.ui.emptyBar:getWidth() / 2, Images.ui.emptyBar:getHeight() / 2)
 
-  -- Loading bar
   love.graphics.stencil(function()
     local w, h = Images.ui.emptyBar:getDimensions()
     local w, h = w * 0.275, h * 0.275
@@ -84,15 +75,6 @@ function Loading:draw()
   love.graphics.draw(Images.ui.progress, x, y, 0, 0.275, 0.275,
       Images.ui.progress:getWidth() / 2, Images.ui.progress:getHeight() / 2)
   love.graphics.setStencilTest()
-
-  --rotation:
-  -- love.graphics.setColor(1, 1, 1)
-  -- love.graphics.push()  -- Save the current transformation state
-  -- love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)  -- Translate to the center
-  -- love.graphics.rotate(rotationAngle)  -- Rotate
-  -- love.graphics.draw(Images.ui.catButton)
-  -- love.graphics.pop()  -- Restore the previous transformation state
-  -- love.graphics.setColor(1, 1, 1)
 
   love.graphics.setColor(1, 1, 1)
   love.graphics.draw(self.throbber, love.graphics.getWidth() / 2, 245,
