@@ -38,10 +38,6 @@ function Loading:update(dt)
   end
 
   rotationAngle = rotationAngle + dt * 3.5
-
-  if finishedLoading then
-
-  end
 end
 
 function Loading:draw()
